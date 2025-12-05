@@ -2,7 +2,7 @@ from classifier.classifier import NNClassifier
 from validator.validator import Validator
 from search.forward_selection import forward_selection
 from search.backward_elim import backward_elim
-import time
+
 
 import pandas as pd
 
@@ -18,41 +18,31 @@ def load_dataset(path):
         dataset.append(instance)
     return dataset
 
+def run_searches(name, dataset):
+    num_features = len(dataset[0]["features"])
+    print(f"Instances: {len(dataset)}, Features: {num_features}\n")
 
+    print(" - Running Forward Selection...")
+    fwd_result = forward_selection(num_features, dataset)
+
+
+    print("\n - Running Backward Elimination...")
+    back_result = backward_elim(num_features, dataset)
+
+
+    print("\nRESULTS SUMMARY:")
+    print(f"{name} Forward Selection  \n\tBest set: {fwd_result['best_set']}, Accuracy: {round(fwd_result['best_acc']*100,2)}%")
+    print(f"{name} Backward Elim      \n\tBest set: {back_result['curr_features']}, Accuracy: {round(back_result['best_acc']*100,2)}%\n")
 
 if __name__ == "__main__":
-    # test small dataset
+    # small dataset
     s_dataset = load_dataset("data/small-test-dataset-2-2.txt")
+    run_searches("SMALL", s_dataset)
 
-    classifier = NNClassifier()
-    validator = Validator()
-
-    # using [3, 5, 7] but since index starts from 0, it is rather [2,4,6]
-    feature_subset = [2, 4, 6]
-    start = time.time()
-    accuracy = validator.evaluate(s_dataset, classifier, feature_subset)
-    end = time.time()
-
-    print(f"Accuracy using features [3, 5, 7]: {round(accuracy*100,2)}% -- took {round(end-start, 5)}seconds")
-
-    # test large dataset
+    # large dataset
     l_dataset = load_dataset("data/large-test-dataset-2.txt")
+    run_searches("LARGE", l_dataset)
 
-    #using [1, 15, 27] but since index starts from 0, it is rather [0, 14, 26]
-    feature_subset = [0, 14, 26]
-    start = time.time()
-    accuracy = validator.evaluate(l_dataset, classifier, feature_subset)
-    end = time.time()
-
-    print(f"Accuracy using features [1, 15, 27]: {round(accuracy*100,2)}% -- took {round(end-start, 5)}seconds")
-
-
-    # Titanic Dataset
-    print("\nTesting titanic dataset:")
+    # titanic dataset
     t_dataset = load_dataset("data/titanic-data.txt")
-    feature_subset = [1, 3, 5]
-    start = time.time()
-    accuracy = validator.evaluate(t_dataset, classifier, feature_subset)
-    end = time.time()
-
-    print(f"Accuracy using features [2, 4, 6]: {round(accuracy*100,2)}% -- took {round(end-start, 5)}seconds")
+    run_searches("TITANIC", t_dataset)
