@@ -11,7 +11,7 @@ def forward_selection(num_features, dataset):
     validator = Validator()
     classifier = NNClassifier()
 
-    print("Using 0 features and \"random\" eval accuracy is ", round(base_acc,2), "%")
+    print("Using 0 features, accuracy is ", round(best_acc,2), "%")
     print("Beginning Search.")
     
 
@@ -21,7 +21,7 @@ def forward_selection(num_features, dataset):
         best_acc_so_far = -1 
 
         #try adding each feature that's not alr in the set
-        for feature in range(1, num_features + 1): 
+        for feature in range(num_features): 
             if feature not in ans_set: 
                 curr_set = ans_set[:] 
                 curr_set.append(feature) 
@@ -45,4 +45,7 @@ def forward_selection(num_features, dataset):
             best_set = ans_set[:]
 
     print("Finished Search!! The best feature subset is ", best_set, "with an accuracy of ", round(best_acc*100,2), "%")
-    return best_set, best_acc
+    return {
+        "best_set": best_set, 
+        "best_acc": best_acc
+    }

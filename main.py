@@ -1,5 +1,7 @@
 from classifier.classifier import NNClassifier
 from validator.validator import Validator
+from search.forward_selection import forward_selection
+from search.backward_elim import backward_elim
 import time
 
 import pandas as pd
