@@ -17,7 +17,7 @@ def forward_selection(num_features, dataset):
 
     #iterate throught lvls 
     for level in range(1,num_features + 1):  
-        feature_to_add = -1
+        feature_to_add = None
         best_acc_so_far = -1 
 
         #try adding each feature that's not alr in the set
@@ -35,14 +35,20 @@ def forward_selection(num_features, dataset):
                     best_acc_so_far = accuracy
                     feature_to_add = feature
 
+
+        # if there is no possible improvement, terminate search
+        if best_acc_so_far <= best_acc: 
+            print("No feature will improve the search, terminating...")
+            break
+
         #add and print the best feature on this lvl (Lvls are [1], [1,2], [1.2.3], etc)
         ans_set.append(feature_to_add)
+        best_acc = best_acc_so_far
+        best_set = ans_set[:]
         print("Feature set ", ans_set, " was the best with an accuracy of ", round(best_acc_so_far*100,2), "%\n")
 
-        #check to see if overall best accuracy is improved if so update 
-        if best_acc_so_far > best_acc: 
-            best_acc = best_acc_so_far
-            best_set = ans_set[:]
+
+            
 
     print("Finished Search!! The best feature subset is ", best_set, "with an accuracy of ", round(best_acc*100,2), "%")
     return {
