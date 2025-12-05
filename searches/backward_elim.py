@@ -1,4 +1,7 @@
 from utils.eval_func import rando_eval
+# now we have a proper evaluation function
+from validator.validator import Validator
+from classifier.classifier import NNClassifier
 
 # “If I remove this feature, does my model get worse?”
 

@@ -1,12 +1,15 @@
 from utils.eval_func import rando_eval
+# now we have a proper evaluation function
+from validator.validator import Validator
+from classifier.classifier import NNClassifier
 
-def forward_selection(num_features): 
+def forward_selection(num_features, dataset): 
     #empty set to start 
     ans_set = [] 
     best_set = [] 
-
-    base_acc = rando_eval() #get base accuracy with no features
-    best_acc = base_acc #this is the best intiially 
+    best_acc = 0
+    validator = Validator()
+    classifier = NNClassifier()
 
     print("Using 0 features and \"random\" eval accuracy is ", round(base_acc,2), "%")
     print("Beginning Search.")
@@ -23,7 +26,7 @@ def forward_selection(num_features):
                 curr_set = ans_set[:] 
                 curr_set.append(feature) 
 
-                accuracy = rando_eval() 
+                accuracy = validator.evaluate(dataset, classifier, curr_set)
 
                 print("    Using feature(s) ", curr_set, " accuracy is ", round(accuracy*100,2), "%")
 
@@ -42,3 +45,4 @@ def forward_selection(num_features):
             best_set = ans_set[:]
 
     print("Finished Search!! The best feature subset is ", best_set, "with an accuracy of ", round(best_acc*100,2), "%")
+    return best_set, best_acc
