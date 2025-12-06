@@ -75,6 +75,22 @@ def run_searches(name, dataset):
     print(f"{name} Backward Elim      \n\tBest set: {back_result['curr_features']}, Accuracy: {round(back_result['best_acc']*100,2)}%\n")
 
 if __name__ == "__main__":
+    print("Welcome to CS Lords Feature Selection Algorithm")
+    print("Choose a dataset to test :")
+    while True:
+        # Flag to turn off path display
+        try:
+            print("\nEnter your choice of algorithm:")
+            print("\t1. Uniform Cost Search")
+            print("\t2. A* with the Misplaced Tile heuristic")
+            print("\t3. A* with the Euclidean distance heuristic")
+            print(f"\t4. Turn off path display (currently: {is_path_hidden})")
+            print("\t5. Reset the Puzzle")
+            print("\t6. Quit")
+            search_choice = int(input(f"\n--> "))
+            if search_choice not in [1, 2, 3, 4, 5, 6]:
+                print("Please choose between option [1, 2, 3, 4, 5, 6]\n")
+                continue
     # small dataset
     s_dataset = load_dataset("data/small-test-dataset-2-2.txt")
     s_dataset = normalize(s_dataset)
