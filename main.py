@@ -110,7 +110,6 @@ if __name__ == "__main__":
         print("Done!")
 
     while True:
-        # Flag to turn off path display
         try:
             print("\nEnter your choice of algorithm:")
             print("\t1. Forward Selection")
