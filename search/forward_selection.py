@@ -11,7 +11,7 @@ def forward_selection(num_features, dataset):
     validator = Validator()
     classifier = NNClassifier()
 
-    print("Using 0 features, accuracy is ", round(best_acc,2), "%")
+    print("Using 0 features, using “leaving-one-out” evaluation, accuracy is ", round(best_acc,2), "%")
     print("Beginning Search.")
     
 
@@ -38,8 +38,7 @@ def forward_selection(num_features, dataset):
 
         # if there is no possible improvement, terminate search
         if best_acc_so_far <= best_acc: 
-            print("No feature will improve the search, terminating...")
-            break
+            print("No feature will improve the search, however we continue...")
 
         #add and print the best feature on this lvl (Lvls are [1], [1,2], [1.2.3], etc)
         ans_set.append(feature_to_add)

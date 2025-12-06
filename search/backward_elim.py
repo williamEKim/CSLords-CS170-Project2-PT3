@@ -20,7 +20,7 @@ def backward_elim(num_features, dataset):
     base_acc = validator.evaluate(dataset, classifier, curr_features)
     best_acc = base_acc
 
-    print(f"\nUsing feature(s) {curr_features}, accuracy is {round(base_acc*100,2)}%")
+    print(f"\nUsing feature(s) {curr_features}, using “leaving-one-out” evaluation, accuracy is {round(base_acc*100,2)}%")
 
     # track removed features
     removed_features = []
