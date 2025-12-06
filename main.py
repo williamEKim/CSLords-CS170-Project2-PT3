@@ -58,50 +58,89 @@ def normalize(dataset):
 
     return normalized_dataset
 
-def run_searches(name, dataset):
-    num_features = len(dataset[0]["features"])
-    print(f"Instances: {len(dataset)}, Features: {num_features}\n")
-
-    print(" - Running Forward Selection...")
-    fwd_result = forward_selection(num_features, dataset)
-
-
-    print("\n - Running Backward Elimination...")
-    back_result = backward_elim(num_features, dataset)
-
-
-    print("\nRESULTS SUMMARY:")
-    print(f"{name} Forward Selection  \n\tBest set: {fwd_result['best_set']}, Accuracy: {round(fwd_result['best_acc']*100,2)}%")
-    print(f"{name} Backward Elim      \n\tBest set: {back_result['curr_features']}, Accuracy: {round(back_result['best_acc']*100,2)}%\n")
-
 if __name__ == "__main__":
+    dataset = None
+    num_features = None
+    name = None
     print("Welcome to CS Lords Feature Selection Algorithm")
-    print("Choose a dataset to test :")
+    print("Choose a dataset to test:")
+    print("\t1. Small Dataset")
+    print("\t2. Large Dataset")
+    print("\t3. Titanic Dataset")
+    dataset_choice = int(input(f"\n--> "))
+
+    # small dataset
+    if dataset_choice == 1:
+        name = "SMALL"
+        dataset = load_dataset("data/small-test-dataset-2-2.txt")
+        num_features = len(dataset[0]["features"])
+        print(f"\nInstances: {len(dataset)}, Features: {num_features}")
+        print("Normalizing Data ... ", end='')
+        dataset = normalize(dataset)
+        print("Done!")
+
+    # large dataset
+    elif dataset_choice == 2:
+        name = "LARGE"
+        dataset = load_dataset("data/large-test-dataset-2.txt")
+        num_features = len(dataset[0]["features"])
+        print(f"\nInstances: {len(dataset)}, Features: {num_features}")
+        print("Normalizing Data ... ", end='')
+        dataset = normalize(dataset)
+        print("Done!")
+
+    # titanic dataset
+    elif dataset_choice == 3:
+        name = "TITANIC"
+        dataset = load_dataset("data/titanic-data.txt")
+        num_features = len(dataset[0]["features"])
+        print(f"\nInstances: {len(dataset)}, Features: {num_features}")
+        print("Normalizing Data ... ", end='')
+        dataset = normalize(dataset)
+        print("Done!")
+
+    # default(small dataset)
+    else:
+        print("Not a valid choice, going with default (Small Dataset)")
+        dataset = load_dataset("data/small-test-dataset-2-2.txt")
+        num_features = len(dataset[0]["features"])
+        print(f"\nInstances: {len(dataset)}, Features: {num_features}")
+        print("Normalizing Data ... ", end='')
+        dataset = normalize(dataset)
+        print("Done!")
+
     while True:
         # Flag to turn off path display
         try:
             print("\nEnter your choice of algorithm:")
-            print("\t1. Uniform Cost Search")
-            print("\t2. A* with the Misplaced Tile heuristic")
-            print("\t3. A* with the Euclidean distance heuristic")
-            print(f"\t4. Turn off path display (currently: {is_path_hidden})")
-            print("\t5. Reset the Puzzle")
-            print("\t6. Quit")
+            print("\t1. Forward Selection")
+            print("\t2. Backward Elimination")
+            print("\t3. CS Lords Special Search")
+            print("\t4. Quit")
             search_choice = int(input(f"\n--> "))
-            if search_choice not in [1, 2, 3, 4, 5, 6]:
-                print("Please choose between option [1, 2, 3, 4, 5, 6]\n")
+            if search_choice not in [1, 2, 3, 4]:
+                print("Please choose between option [1, 2, 3, 4]\n")
                 continue
-    # small dataset
-    s_dataset = load_dataset("data/small-test-dataset-2-2.txt")
-    s_dataset = normalize(s_dataset)
-    run_searches("SMALL", s_dataset)
+        except ValueError:
+            print(f"It is not an appropriate value. \nPlease choose between option [1, 2, 3, 4, 5, 6]\n")
+            continue
 
-    # large dataset
-    l_dataset = load_dataset("data/large-test-dataset-2.txt")
-    l_dataset = normalize(l_dataset)
-    run_searches("LARGE", l_dataset)
+        if search_choice == 1:
+            print(" - Running Forward Selection...")
+            fwd_result = forward_selection(num_features, dataset)
+            print("\nRESULTS SUMMARY:")
+            print(f"{name} Forward Selection  \n\tBest set: {fwd_result['best_set']}, Accuracy: {round(fwd_result['best_acc']*100,2)}%")
 
-    # titanic dataset
-    t_dataset = load_dataset("data/titanic-data.txt")
-    t_dataset = normalize(t_dataset)
-    run_searches("TITANIC", t_dataset)
+        elif search_choice == 2:
+            print("\n - Running Backward Elimination...")
+            back_result = backward_elim(num_features, dataset)
+            print("\nRESULTS SUMMARY:")
+            print(f"{name} Backward Elim      \n\tBest set: {back_result['curr_features']}, Accuracy: {round(back_result['best_acc']*100,2)}%\n")
+
+        elif search_choice == 3:
+            print("\n - Running CS Lords Special Search...")
+            print("To Be Implemented...")
+        elif search_choice == 4:
+            print("Terminating the Program...")
+            break
+
