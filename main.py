@@ -6,8 +6,12 @@ import math
 import pandas as pd
 
 def load_dataset(path):
-    data = pd.read_csv(path, header=None, sep=r"\s+")
-
+    try:
+        data = pd.read_csv(path, header=None, sep=r"\s+")
+    except FileNotFoundError:
+        print(f"Error: File '{path}' not found.")
+        return None
+    
     dataset = []
     for _, row in data.iterrows():
         instance = {
@@ -67,6 +71,7 @@ if __name__ == "__main__":
     print("\t1. Small Dataset")
     print("\t2. Large Dataset")
     print("\t3. Titanic Dataset")
+    print("\t4. Other Dataset")
     dataset_choice = int(input(f"\n--> "))
 
     # small dataset
@@ -93,6 +98,21 @@ if __name__ == "__main__":
     elif dataset_choice == 3:
         name = "TITANIC"
         dataset = load_dataset("data/titanic-data.txt")
+        num_features = len(dataset[0]["features"])
+        print(f"\nInstances: {len(dataset)}, Features: {num_features}")
+        print("Normalizing Data ... ", end='')
+        dataset = normalize(dataset)
+        print("Done!")
+
+    # titanic dataset
+    elif dataset_choice == 4:
+        name = "OTHER"
+        dataset_name = None
+        dataset = None
+        while(dataset_name is None):
+            dataset_name = str(input(f"\tType in the name of dataset: "))
+            dataset = load_dataset(f"data/{dataset_name}")
+
         num_features = len(dataset[0]["features"])
         print(f"\nInstances: {len(dataset)}, Features: {num_features}")
         print("Normalizing Data ... ", end='')

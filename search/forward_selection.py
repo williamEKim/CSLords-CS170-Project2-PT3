@@ -37,8 +37,9 @@ def forward_selection(num_features, dataset):
 
 
         # if there is no possible improvement, terminate search
+        print("")
         if best_acc_so_far <= best_acc: 
-            print("No feature will improve the search at this instance, continue...")
+            print("Warning!!! Accuracy has decreased, continuing search in case of local maxima...")
 
         #add and print the best feature on this lvl (Lvls are [1], [1,2], [1.2.3], etc)
         ans_set.append(feature_to_add)
