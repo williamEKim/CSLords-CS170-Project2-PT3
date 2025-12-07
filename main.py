@@ -146,27 +146,27 @@ if __name__ == "__main__":
             continue
 
         if search_choice == 1:
-            # small --
-            # large --
-            # titanic --
+            # small -- Best set: [5, 3], Accuracy: 92.0%
+            # large -- Best set: [27, 1], Accuracy: 95.5%
+            # titanic -- Best set: [2], Accuracy: 78.01%
             print(" - Running Forward Selection...")
             fwd_result = forward_selection(num_features, dataset)
             print("\nRESULTS SUMMARY:")
             print(f"{name} Forward Selection \n\tBest set: {[ f+1 for f in fwd_result['best_set'] ]}, Accuracy: {round(fwd_result['best_acc']*100,2)}%")
 
         elif search_choice == 2:
-            # small --
-            # large --
-            # titanic --
+            # small -- Best set: [2, 4, 5, 7, 10], Accuracy: 82.0%
+            # large -- Best set: [2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 34, 35, 37, 39, 40], Accuracy: 72.9%
+            # titanic -- Best set: [2], Accuracy: 78.01%
             print("\n - Running Backward Elimination...")
             back_result = backward_elim(num_features, dataset)
             print("\nRESULTS SUMMARY:")
             print(f"{name} Backward Elim \n\tBest set: {[ f+1 for f in back_result['curr_features'] ]}, Accuracy: {round(back_result['best_acc']*100,2)}%\n")
 
         elif search_choice == 3:
-            # small --
+            # small -- Best set: [3, 5], Accuracy: 92.0%
             # large -- Best set: [2, 3, 35, 5, 36, 8, 9, 40, 12, 14, 24, 26, 27, 28, 29, 31], Accuracy: 75.6%
-            # titanic --
+            # titanic -- Best set: [2], Accuracy: 78.01%
             print("\n - Running CS Lords Special Search...")
             k_val = int(input(f"\tPlease type in how many random restarts you want: "))
             cslords_result = cslords_special_search(num_features, dataset, k_val)
