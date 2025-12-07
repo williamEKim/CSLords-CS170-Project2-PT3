@@ -2,6 +2,7 @@ from classifier.classifier import NNClassifier
 from validator.validator import Validator
 from search.forward_selection import forward_selection
 from search.backward_elim import backward_elim
+from search.cs_lords_special import cslords_special_search
 import math
 import pandas as pd
 
@@ -148,17 +149,20 @@ if __name__ == "__main__":
             print(" - Running Forward Selection...")
             fwd_result = forward_selection(num_features, dataset)
             print("\nRESULTS SUMMARY:")
-            print(f"{name} Forward Selection  \n\tBest set: {fwd_result['best_set']}, Accuracy: {round(fwd_result['best_acc']*100,2)}%")
+            print(f"{name} Forward Selection \n\tBest set: {[ f+1 for f in fwd_result['best_set'] ]}, Accuracy: {round(fwd_result['best_acc']*100,2)}%")
 
         elif search_choice == 2:
             print("\n - Running Backward Elimination...")
             back_result = backward_elim(num_features, dataset)
             print("\nRESULTS SUMMARY:")
-            print(f"{name} Backward Elim      \n\tBest set: {back_result['curr_features']}, Accuracy: {round(back_result['best_acc']*100,2)}%\n")
+            print(f"{name} Backward Elim \n\tBest set: {[ f+1 for f in back_result['curr_features'] ]}, Accuracy: {round(back_result['best_acc']*100,2)}%\n")
 
         elif search_choice == 3:
             print("\n - Running CS Lords Special Search...")
-            print("To Be Implemented...")
+            k_val = int(input(f"\tPlease type in how many random restarts you want: "))
+            cslords_result = cslords_special_search(num_features, dataset, k_val)
+            print("\nRESULTS SUMMARY:")
+            print(f"{name} CS Lords Special Search \n\tBest set: {[ f+1 for f in cslords_result['curr_features'] ]}, Accuracy: {round(cslords_result['best_acc']*100,2)}%\n")
         elif search_choice == 4:
             print("Terminating the Program...")
             break

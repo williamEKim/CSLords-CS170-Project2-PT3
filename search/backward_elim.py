@@ -20,7 +20,7 @@ def backward_elim(num_features, dataset):
     base_acc = validator.evaluate(dataset, classifier, curr_features)
     best_acc = base_acc
 
-    print(f"\nUsing feature(s) {curr_features}, using “leaving-one-out” evaluation, accuracy is {round(base_acc*100,2)}%")
+    print(f"\nUsing feature(s) {[ f+1 for f in curr_features ]}, using “leaving-one-out” evaluation, accuracy is {round(base_acc*100,2)}%")
 
     # track removed features
     removed_features = []
@@ -34,7 +34,7 @@ def backward_elim(num_features, dataset):
             subset = [x for x in curr_features if x != f]
             accuracy = validator.evaluate(dataset, classifier, subset)  # evaluate this subset
 
-            print(f"\tUsing feature(s) {subset} with accuracy of {round(accuracy*100,2)}%")
+            print(f"\tUsing feature(s) {[ f+1 for f in subset ]} with accuracy of {round(accuracy*100,2)}%")
 
             if accuracy >= best_acc:
                 best_acc = accuracy
@@ -45,12 +45,12 @@ def backward_elim(num_features, dataset):
             removed_features.append(feature_to_remove)
             curr_features.remove(feature_to_remove)
             base_acc = best_acc  # update the best score
-            print(f"\nRemoved feature {feature_to_remove}; new set: {curr_features} with accuracy of {round(best_acc * 100,2)}%\n")
+            print(f"\nRemoved feature {feature_to_remove}; new set: {[ f+1 for f in curr_features ]} with accuracy of {round(best_acc * 100,2)}%\n")
         else:
             print("\nNo more improvements can be made by removal, terminating the search...\n")
             break
 
-    print(f"\nSuccessfully executed Backward Elimination\n\tresult: {curr_features} with accuracy of {round(best_acc * 100,2)}%\n")
+    print(f"\nSuccessfully executed Backward Elimination\n\tresult: {[ f+1 for f in curr_features ]} with accuracy of {round(best_acc * 100,2)}%\n")
 
     return {
         "curr_features": curr_features,
