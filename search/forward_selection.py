@@ -8,6 +8,7 @@ def forward_selection(num_features, dataset):
     ans_set = [] 
     best_set = [] 
     best_acc = 0
+    improved = False
     validator = Validator()
     classifier = NNClassifier()
 
@@ -36,15 +37,17 @@ def forward_selection(num_features, dataset):
                     feature_to_add = feature
 
 
-        # if there is no possible improvement, terminate search
         print("")
         if best_acc_so_far <= best_acc: 
             print("Warning!!! Accuracy has decreased, continuing search in case of local maxima...")
 
-        #add and print the best feature on this lvl (Lvls are [1], [1,2], [1.2.3], etc)
-        ans_set.append(feature_to_add)
-        best_acc = best_acc_so_far
-        best_set = ans_set[:]
+        # if there is no possible improvement, do not update best set
+        else:
+            #add the best feature on this lvl (Lvls are [1], [1,2], [1.2.3], etc)
+            ans_set.append(feature_to_add)
+            best_acc = best_acc_so_far
+            best_set = ans_set[:]
+
         print("Feature set ", [ f+1 for f in ans_set ], " was the best with an accuracy of ", round(best_acc_so_far*100,2), "%\n")
 
 
