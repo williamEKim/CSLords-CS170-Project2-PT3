@@ -28,7 +28,7 @@ def forward_selection(num_features, dataset):
 
                 accuracy = validator.evaluate(dataset, classifier, curr_set)
 
-                print("    Using feature(s) ", curr_set, " accuracy is ", round(accuracy*100,2), "%")
+                print("    Using feature(s) ", [ f+1 for f in curr_set ], " accuracy is ", round(accuracy*100,2), "%")
 
                 #check to see if there is a better accuracy 
                 if accuracy > best_acc_so_far: 
@@ -45,12 +45,12 @@ def forward_selection(num_features, dataset):
         ans_set.append(feature_to_add)
         best_acc = best_acc_so_far
         best_set = ans_set[:]
-        print("Feature set ", ans_set, " was the best with an accuracy of ", round(best_acc_so_far*100,2), "%\n")
+        print("Feature set ", [ f+1 for f in ans_set ], " was the best with an accuracy of ", round(best_acc_so_far*100,2), "%\n")
 
 
             
 
-    print("Finished Search!! The best feature subset is ", best_set, "with an accuracy of ", round(best_acc*100,2), "%")
+    print("Finished Search!! The best feature subset is ", [ f+1 for f in best_set ], "with an accuracy of ", round(best_acc*100,2), "%")
     return {
         "best_set": best_set, 
         "best_acc": best_acc
