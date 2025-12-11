@@ -111,6 +111,13 @@ if __name__ == "__main__":
     dataset = normalize(dataset)
     print("Done!")
 
+    # calculate default rate
+    labels = [instance["label"] for instance in dataset]
+    majority_count = max(labels.count(1), labels.count(2))
+    majority_label = 1 if labels.count(1) > labels.count(2) else 2
+    default_rate = majority_count / len(labels)
+    print(f"With out search, majority label is {majority_label} with default rate of {round(default_rate*100,2)}%")
+
 
     while True:
         try:
