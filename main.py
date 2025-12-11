@@ -51,11 +51,7 @@ def normalize(dataset):
     for instance in dataset:
         norm_features = []
         for i in range(num_features):
-            # not necessary
-            if std_dev[i] > 0:
-                norm_val = (instance["features"][i] - feature_means[i]) / std_dev[i]
-            else:
-                norm_val = 0.0
+            norm_val = (instance["features"][i] - feature_means[i]) / std_dev[i]
             norm_features.append(norm_val)
         normalized_dataset.append({
             "label": instance["label"],
