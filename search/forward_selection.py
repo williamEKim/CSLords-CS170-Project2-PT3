@@ -11,7 +11,7 @@ def forward_selection(num_features, dataset):
     validator = Validator()
     classifier = NNClassifier()
 
-    print("Using 0 features, using “leaving-one-out” evaluation, accuracy(default rate) is ", round(best_acc*100,2), "%")
+    print("Using 0 features, using “leaving-one-out” evaluation, accuracy is ", round(best_acc*100,2), "%")
     print("Beginning Search.")
     
 

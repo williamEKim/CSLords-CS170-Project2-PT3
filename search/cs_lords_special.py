@@ -3,7 +3,7 @@ from validator.validator import Validator
 from classifier.classifier import NNClassifier
 
 ### CS LORD SPECIAL SEARCH: RANDOM RESTART(default k = 5) HILL CLIMBING SEARCH ###
-
+# we could've done simulated annealing
 def get_random_features(num_features):
     # Return random features (include feature in 50% chance)
     features = set()
