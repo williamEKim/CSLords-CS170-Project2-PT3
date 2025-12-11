@@ -11,8 +11,12 @@ def forward_selection(num_features, dataset):
     validator = Validator()
     classifier = NNClassifier()
 
+    # calculate default rate
+    labels = [instance["label"] for instance in dataset]
+    majority_count = max(labels.count(1), labels.count(2))
+    default_rate = majority_count / len(labels)
 
-    print("Using 0 features, using “leaving-one-out” evaluation, accuracy is ", round(best_acc,2), "%")
+    print("Using 0 features, using “leaving-one-out” evaluation, accuracy(default rate) is ", round(default_rate*100,2), "%")
     print("Beginning Search.")
     
 
