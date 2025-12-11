@@ -23,7 +23,7 @@ def forward_selection(num_features, dataset):
     #iterate throught lvls 
     for level in range(1,num_features + 1):  
         feature_to_add = None 
-        best_acc_so_far = -1
+        best_acc_so_far = 0
 
         #try adding each feature that's not alr in the set
         for feature in range(num_features): 

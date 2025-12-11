@@ -79,31 +79,16 @@ if __name__ == "__main__":
     if dataset_choice == 1:
         name = "SMALL"
         dataset = load_dataset("data/small-test-dataset-2-2.txt")
-        num_features = len(dataset[0]["features"])
-        print(f"\nInstances: {len(dataset)}, Features: {num_features}")
-        print("Normalizing Data ... ", end='')
-        dataset = normalize(dataset)
-        print("Done!")
 
     # large dataset
     elif dataset_choice == 2:
         name = "LARGE"
         dataset = load_dataset("data/large-test-dataset-2.txt")
-        num_features = len(dataset[0]["features"])
-        print(f"\nInstances: {len(dataset)}, Features: {num_features}")
-        print("Normalizing Data ... ", end='')
-        dataset = normalize(dataset)
-        print("Done!")
 
     # titanic dataset
     elif dataset_choice == 3:
         name = "TITANIC"
         dataset = load_dataset("data/titanic-data.txt")
-        num_features = len(dataset[0]["features"])
-        print(f"\nInstances: {len(dataset)}, Features: {num_features}")
-        print("Normalizing Data ... ", end='')
-        dataset = normalize(dataset)
-        print("Done!")
 
     # titanic dataset
     elif dataset_choice == 4:
@@ -114,21 +99,18 @@ if __name__ == "__main__":
             dataset_name = str(input(f"\tType in the name of dataset: "))
             dataset = load_dataset(f"data/{dataset_name}")
 
-        num_features = len(dataset[0]["features"])
-        print(f"\nInstances: {len(dataset)}, Features: {num_features}")
-        print("Normalizing Data ... ", end='')
-        dataset = normalize(dataset)
-        print("Done!")
 
     # default(small dataset)
     else:
         print("Not a valid choice, going with default (Small Dataset)")
         dataset = load_dataset("data/small-test-dataset-2-2.txt")
-        num_features = len(dataset[0]["features"])
-        print(f"\nInstances: {len(dataset)}, Features: {num_features}")
-        print("Normalizing Data ... ", end='')
-        dataset = normalize(dataset)
-        print("Done!")
+
+    num_features = len(dataset[0]["features"])
+    print(f"\nInstances: {len(dataset)}, Features: {num_features}")
+    print("Normalizing Data ... ", end='')
+    dataset = normalize(dataset)
+    print("Done!")
+
 
     while True:
         try:
