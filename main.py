@@ -1,3 +1,10 @@
+#- Group: William(Dongyeon) Kim – wkim107 – Session 1, Andrew Pham – apham184 – Session 2, Devin Peters – dpete050 – Session 1
+#- Small Dataset Results:
+#- Forward: Feature Subset: [5, 3], Accuracy: 92.0%
+#- Backward: Feature Subset: [2, 4, 5, 7, 10], Accuracy: 82.0%
+#- Large Dataset Results:
+#- Forward: Feature Subset: [27, 1], Accuracy: 95.5%
+#- Backward: Feature Subset: [2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 34, 35, 37, 39, 40], Accuracy: 72.9%
 from classifier.classifier import NNClassifier
 from validator.validator import Validator
 from search.forward_selection import forward_selection
@@ -161,4 +168,6 @@ if __name__ == "__main__":
         elif search_choice == 4:
             print("Terminating the Program...")
             break
+
+            
 
